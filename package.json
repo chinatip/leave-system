@@ -1,0 +1,25 @@
+{
+  "name": "web-dev-project-1",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.4.4",
+    "axios": "^0.18.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-resolver": "^3.1.2",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "recompose": "^0.27.0",
+    "styled-components": "^3.2.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
