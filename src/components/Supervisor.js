@@ -38,7 +38,7 @@ const ADMIN_MENU = {
 const SUP_MENU = {
   Profile: 'profile',
   'Manage Subordinates': 'manage',
-  'Manage Subordinates': 'leaves'
+  'Manage Leaves': 'leaves'
 }
 
 const SUB_MENU = {

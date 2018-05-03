@@ -32,6 +32,7 @@ class LoginForm extends React.Component {
     e.preventDefault()
     form.validateFields(async (err, values) => {
       if (!err) {
+        global.localStorage.setItem('token', null)
         const { token } = await login(values)
         global.localStorage.setItem('token', token)
         

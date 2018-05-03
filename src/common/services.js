@@ -7,6 +7,7 @@ const client = axios.create({
 const getToken = () => global.localStorage.getItem('token')
 
 export const login = (data) => client.post('/users/login', data).then(({ data }) => data)
+// export const logout = () => client.post('/users/logout', { token: getToken() }).then(({ data }) => data)
 
 export const createUser = (data) => client.post('/users', data, { headers: { token: getToken() } }).then(({ data }) => data)
 
