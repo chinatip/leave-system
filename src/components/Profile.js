@@ -28,6 +28,9 @@ class LoginForm extends React.Component {
   componentDidMount () {
     const { form, user } = this.props
     form.setFields({
+      firstname: {
+        value: user.firstname
+      },
       lastname: {
         value: user.lastname
       },
@@ -52,7 +55,7 @@ class LoginForm extends React.Component {
     e.preventDefault()
     form.validateFields(async (err, values) => {
       if (!err) {
-        const u = await updateUser({ ...user, values})
+        const u = await updateUser({ ...user, ...values})
         console.log(u)
       }
     })

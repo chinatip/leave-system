@@ -36,9 +36,9 @@ const ADMIN_MENU = {
 }
 
 const SUP_MENU = {
-  Profile: 'user/profile',
-  'Manage Subordinates': 'user/manage',
-  'Manage Subordinates': 'user/leaves'
+  Profile: 'profile',
+  'Manage Subordinates': 'manage',
+  'Manage Subordinates': 'leaves'
 }
 
 const SUB_MENU = {
