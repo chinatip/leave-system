@@ -33,6 +33,14 @@ class ManageUser extends React.Component {
         dataIndex: 'substitute',
         key: 'substitute',
         render: (r) => `${r.firstname || ''} ${r.lastname || ''}`
+      },, {
+        title: 'date',
+        dataIndex: 'period.date',
+        key: 'period'
+      }, {
+        title: 'day',
+        dataIndex: 'period.period',
+        key: 'period'
       }, {
         title: 'type',
         dataIndex: 'type',

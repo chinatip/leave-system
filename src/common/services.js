@@ -1,18 +1,18 @@
 import axios from 'axios'
 
 const client = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://leavebackend.herokuapp.com',
 })
 
 const getToken = () => global.localStorage.getItem('token')
 
 export const login = (data) => client.post('/users/login', data).then(({ data }) => data)
+export const verifyToken = () => client.get('/users/me', { headers: { token: getToken() }}).then(({ data }) => data[0])
 // export const logout = () => client.post('/users/logout', { token: getToken() }).then(({ data }) => data)
 
 export const createUser = (data) => client.post('/users', data).then(({ data }) => data)
 export const createLeave = (data) => client.post('/leaves', data).then(({ data }) => data)
 
-export const verifyToken = () => client.get('/users/me', { headers: { token: getToken() }}).then(({ data }) => data[0])
 
 export const loadUsers = (data) => client.get('/users', data).then(({ data }) => data)
 export const loadDepartments = (data) => client.get('/departments', data).then(({ data }) => data)
