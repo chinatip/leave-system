@@ -8,6 +8,7 @@ import Navigation from './Navigation'
 import { verifyToken } from 'common/services'
 import ManageUser from './ManageUser';
 import Profile from './Profile'
+import ManageLeave from './ManageLeave'
 
 const Container = styled.div`
   width: 100%;
@@ -62,6 +63,8 @@ class Admin extends React.Component {
       return <Profile />
     } else if (type === 'manage') {
       return <ManageUser />
+    } else if (type === 'leaves') {
+      return <ManageLeave />
     }
 
     return <Profile />
