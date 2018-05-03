@@ -10,6 +10,7 @@ export const login = (data) => client.post('/users/login', data).then(({ data })
 // export const logout = () => client.post('/users/logout', { token: getToken() }).then(({ data }) => data)
 
 export const createUser = (data) => client.post('/users', data).then(({ data }) => data)
+export const createLeave = (data) => client.post('/leaves', data).then(({ data }) => data)
 
 export const verifyToken = () => client.get('/users/me', { headers: { token: getToken() }}).then(({ data }) => data[0])
 

@@ -2,15 +2,26 @@ import React from 'react'
 import { Table } from 'common'
 import { compose } from 'recompose'
 import { resolve } from "react-resolver"
+import { Button } from 'antd'
 
-import { verifyToken, loadLeaves } from 'common/services'
+import { verifyToken, loadUsers, loadLeaves } from 'common/services'
+import LeaveModal from './LeaveModal';
 
 const enhance = compose(
   resolve("user", async (props) => await verifyToken()),
+  resolve("users", async (props) => await loadUsers()),
   resolve("leaves", async (props) => await loadLeaves()),
 )
 
 class Leave extends React.Component {
+  state = {
+    visible: false
+  }
+
+  handleAddLeave = () => {
+    this.setState({ visible: !this.state.visible})
+  }
+
   formatData() {
     const { leaves, onEdit } = this.props
     const columns = [
@@ -34,12 +45,16 @@ class Leave extends React.Component {
   }
 
   render() {
+    const { visible } = this.state
+    const { users, user } = this.props
     const { dataSource, columns } = this.formatData()
-    console.log(dataSource)
+
     return (
       <div>
         <h1>Leave</h1>
+        <Button onClick={this.handleAddLeave}>Add Leave</Button>
         <Table dataSource={dataSource} columns={columns} />
+        {visible && <LeaveModal onCancel={this.handleAddLeave} visible={visible} user={user} users={users}/>}
       </div>
     )
   }
