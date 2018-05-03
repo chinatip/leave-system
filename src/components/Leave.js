@@ -15,14 +15,9 @@ class Leave extends React.Component {
     const { leaves, onEdit } = this.props
     const columns = [
       {
-        title: 'user',
-        dataIndex: 'user',
-        key: 'user',
-        render: (r) => `${r.firstname || ''} ${r.lastname || ''}`
-      }, {
-        title: 'subordinate',
-        dataIndex: 'subordinate',
-        key: 'subordinate',
+        title: 'substitute',
+        dataIndex: 'substitute',
+        key: 'substitute',
         render: (r) => `${r.firstname || ''} ${r.lastname || ''}`
       }, {
         title: 'type',
@@ -40,6 +35,7 @@ class Leave extends React.Component {
 
   render() {
     const { dataSource, columns } = this.formatData()
+    console.log(dataSource)
     return (
       <div>
         <h1>Leave</h1>
