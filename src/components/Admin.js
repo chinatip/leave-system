@@ -61,7 +61,7 @@ class Admin extends React.Component {
     if (type === 'profile') {
       return <Profile />
     } else if (type === 'manage') {
-      return <ManageUser />
+      return <ManageUser edit />
     }
 
     return <Profile />

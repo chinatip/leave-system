@@ -7,6 +7,7 @@ import Login from './Login'
 import Admin from './components/Admin'
 import Profile from './components/Profile'
 import ManageUser from './components/ManageUser'
+import Supervisor from './components/Supervisor'
 
 const Container = styled.div`
   width: 100vw;
@@ -25,7 +26,8 @@ class App extends Component {
             <Route path="/admin" component={Admin} />
             <Route exact path="/admin" render={() => <Redirect to="/admin/profile" />} />
             <Route path="/admin/:type" component={Admin} />
-            {/* <Route path="/user/manage" component={Profile} /> */}
+            <Route exact path="/supervisor" render={() => <Redirect to="/supervisor/profile" />} />
+            <Route path="/supervisor/:type" component={Supervisor} />
           </Switch>
         </Router>
       </Container>

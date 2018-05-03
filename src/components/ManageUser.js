@@ -21,20 +21,14 @@ class ManageUser extends React.Component {
   }
 
   formatData() {
-    const { users } = this.props
-    // picture: String,
-    // role: String,
-    // token: String,
-    // department: { type: ObjectId, ref: 'Department' },
-    // tasks: [{ type: ObjectId, ref: 'Task' }],
-    // contact: Object,
+    const { users, edit = false, onEdit } = this.props
     const columns = [
       {
-        title: 'ชื่อ',
+        title: 'Name',
         key: 'name',
         render: (r) => `${r.firstname || ''} ${r.lastname || ''}`
       }, {
-        title: 'ตำแหน่ง',
+        title: 'Role',
         dataIndex: 'role',
         key: 'role'
       }, {
@@ -42,17 +36,25 @@ class ManageUser extends React.Component {
         dataIndex: 'department',
         key: 'department'
       }, {
-        title: 'งาน',
+        title: 'Tasks',
         dataIndex: 'tasks',
         key: 'tasks',
         render: (t) => <div>{_.map(t, t => t.name)}</div>
       }, {
-        title: 'ติดต่อ',
+        title: 'Contact',
         dataIndex: 'contact',
         key: 'contact',
         render: (t) => <div>{_.map(t, t => t.name)}</div>
       }
     ] 
+
+    if (edit) {
+      columns.push({
+        title: 'Edit',
+        key: 'edit',
+        render: (t) => <button onClick={() => onEdit(t)}>Edit</button>
+      })
+    }
 
     return { dataSource: users, columns }
   }

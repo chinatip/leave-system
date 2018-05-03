@@ -14,4 +14,6 @@ export const verifyToken = () => client.get('/users/me', { headers: { token: get
 
 export const loadUsers = (data) => client.get('/users', data).then(({ data }) => data)
 
+export const updateUser = (data) => client.post('/users/update', data).then(({ data }) => data)
+
 export default client
