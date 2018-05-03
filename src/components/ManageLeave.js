@@ -11,75 +11,55 @@ import { verifyToken, loadUsers, loadLeaves } from 'common/services'
 
 const enhance = compose(
   resolve("user", async (props) => await verifyToken()),
-  // resolve("users", async (props) => await loadUsers()),
   resolve("leaves", async (props) => await loadLeaves()),
   withRouter
 )
 
 class ManageUser extends React.Component {
   state = {
-    visible: false,
-    data: null
+    visible: false
   }
 
   formatData() {
-    const { users, edit = false, onEdit } = this.props
+    const { leaves } = this.props
     const columns = [
       {
         title: 'Name',
+        dataIndex: 'user',
         key: 'name',
         render: (r) => `${r.firstname || ''} ${r.lastname || ''}`
       }, {
-        title: 'Role',
-        dataIndex: 'role',
-        key: 'role'
+        title: 'Substitute',
+        dataIndex: 'substitute',
+        key: 'substitute',
+        render: (r) => `${r.firstname || ''} ${r.lastname || ''}`
       }, {
-        title: 'แผนก',
-        dataIndex: 'department',
-        key: 'department'
+        title: 'type',
+        dataIndex: 'type',
+        key: 'type'
       }, {
-        title: 'Tasks',
-        dataIndex: 'tasks',
-        key: 'tasks',
-        render: (t) => <div>{_.map(t, t => t.name)}</div>
-      }, {
-        title: 'Contact',
-        dataIndex: 'contact',
-        key: 'contact',
-        render: (t) => <div>{_.map(t, t => t.name)}</div>
+        title: 'status',
+        dataIndex: 'status',
+        key: 'status'
       }
     ] 
 
-    if (edit) {
-      columns.push({
-        title: 'Edit',
-        key: 'edit',
-        render: (t) => <button onClick={() => this.handleEdit(t)}>Edit</button>
-      })
-    }
-
-    return { dataSource: users, columns }
+    return { dataSource: leaves, columns }
   }
 
-  handleEdit = (data = null) => {
-    console.log(data)
-    this.setState({ data, visible: !this.state.visible })
+  handleEdit = () => {
+    this.setState({ visible: !this.state.visible })
   }
 
   render() {
     const { visible, data } = this.state
     const { leaves, edit } = this.props
-    // const { dataSource, columns } = this.formatData()
-    console.log(this.props)
-    // return (<div>
-    //   <Table dataSource={dataSource} columns={columns} />
-    //   { edit && visible && <ProfileModal
-    //       visible={visible}
-    //       onOk={this.handleEdit}
-    //       onCancel={this.handleEdit}
-    //       user={data}
-    //     />}
-    // </div>)
+    const { dataSource, columns } = this.formatData()
+
+    return (<div>
+      <h1>Leaves</h1>
+      <Table dataSource={dataSource} columns={columns} />
+    </div>)
 
     return <noscript />
   }

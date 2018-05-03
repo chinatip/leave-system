@@ -44,7 +44,8 @@ class LoginForm extends React.Component {
           ...values, 
           period: {
             date: date.format('DD-MM-YYYY HH:mm'), day: period
-          }
+          },
+          status: 'waiting'
         })
         // console.log(u)
         onCancel()
