@@ -4,6 +4,7 @@ import { resolve } from "react-resolver"
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import _ from 'lodash'
+import ProfileModal from './ProfileModal'
 
 import { Table } from 'common'
 import { verifyToken, loadUsers } from 'common/services'
@@ -52,18 +53,32 @@ class ManageUser extends React.Component {
       columns.push({
         title: 'Edit',
         key: 'edit',
-        render: (t) => <button onClick={() => onEdit(t)}>Edit</button>
+        render: (t) => <button onClick={() => this.handleEdit(t)}>Edit</button>
       })
     }
 
     return { dataSource: users, columns }
   }
 
+  handleEdit = (data = null) => {
+    console.log(data)
+    this.setState({ data, visible: !this.state.visible })
+  }
+
   render() {
-    const { users } = this.props
+    const { visible, data } = this.state
+    const { users, edit } = this.props
     const { dataSource, columns } = this.formatData()
 
-    return <Table dataSource={dataSource} columns={columns} />
+    return (<div>
+      <Table dataSource={dataSource} columns={columns} />
+      { edit && visible && <ProfileModal
+          visible={visible}
+          onOk={this.handleEdit}
+          onCancel={this.handleEdit}
+          user={data}
+        />}
+    </div>)
   }
 }
 
