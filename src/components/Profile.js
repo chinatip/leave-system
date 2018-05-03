@@ -22,6 +22,11 @@ const Flex = styled.div`
   display: flex;
 `
 
+const ROLES = [
+  {label: 'Admin', value: 'admin'},
+  {label: 'Supervisor', value: 'supervisor'},
+  {label: 'Subordinate', value: 'subordinate'}
+]
 class LoginForm extends React.Component {
   state = {}
 
@@ -70,7 +75,7 @@ class LoginForm extends React.Component {
         <FormItem label={'firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} required={false}/>
+        <FormItem label={'role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{ options: ROLES }}/>
         <FormItem label={'departments'} field={'departments'} message={'Please input departments'} getFieldDecorator={getFieldDecorator} required={false}/>
         <FormItem label={'tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} required={false}/>
         <NavigationButton onSubmit={this.handleSubmit} last />

@@ -7,11 +7,13 @@ import _ from 'lodash'
 import ProfileModal from './ProfileModal'
 
 import { Table } from 'common'
-import { verifyToken, loadUsers } from 'common/services'
+import { verifyToken, loadUsers, loadDepartments, loadTasks } from 'common/services'
 
 const enhance = compose(
   resolve("user", async (props) => await verifyToken()),
   resolve("users", async (props) => await loadUsers()),
+  resolve("departments", async (props) => await loadDepartments()),
+  resolve("tasks", async (props) => await loadTasks()),
   withRouter
 )
 
@@ -22,7 +24,7 @@ class ManageUser extends React.Component {
   }
 
   formatData() {
-    const { users, edit = false, onEdit } = this.props
+    const { user, users, edit = false, onEdit } = this.props
     const columns = [
       {
         title: 'Name',
@@ -57,7 +59,7 @@ class ManageUser extends React.Component {
       })
     }
 
-    return { dataSource: users, columns }
+    return { dataSource: _.filter(users, u => u.role === 'subordinate' && u.department === user.department), columns }
   }
 
   handleEdit = (data = null) => {
@@ -67,7 +69,7 @@ class ManageUser extends React.Component {
 
   render() {
     const { visible, data } = this.state
-    const { users, edit } = this.props
+    const { users, edit, tasks, departments } = this.props
     const { dataSource, columns } = this.formatData()
 
     return (<div>
@@ -77,6 +79,8 @@ class ManageUser extends React.Component {
           onOk={this.handleEdit}
           onCancel={this.handleEdit}
           user={data}
+          tasks={tasks}
+          departments={departments}
         />}
     </div>)
   }
