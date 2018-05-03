@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import 'antd/dist/antd.css'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import Login from './components/Login'
-import Home from './components/Home'
-import AddUser from './components/AddUser'
+import Login from './Login'
+import Admin from './components/Admin'
+import Profile from './components/Profile'
+import ManageUser from './components/ManageUser'
 
 const Container = styled.div`
   width: 100vw;
@@ -19,9 +20,12 @@ class App extends Component {
       <Container>
         <Router>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
-            <Route path="/users/create" component={AddUser} />
+            <Route path="/admin" component={Admin} />
+            <Route exact path="/admin" render={() => <Redirect to="/admin/profile" />} />
+            <Route path="/admin/:type" component={Admin} />
+            {/* <Route path="/user/manage" component={Profile} /> */}
           </Switch>
         </Router>
       </Container>

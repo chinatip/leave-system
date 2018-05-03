@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 
 import { FormContainer, FormItem, NavigationButton } from 'common/form'
 // import { LOADER, POST, CLINIC } from 'services'
+import { login } from 'common/services'
 
 const Container = styled.div`
   width: 100%;
@@ -25,25 +26,16 @@ const Flex = styled.div`
 class LoginForm extends React.Component {
   state = {}
 
-  // redirectToClinic(id) {
-  //   this.props.history.push(`/clinic/${id}`)
-  // }
-
   handleSubmit = (e) => {
-    const { form, setUser, removeUser } = this.props
+    const { form, history } = this.props
 
     e.preventDefault()
     form.validateFields(async (err, values) => {
       if (!err) {
-        // this.setState({ appointmentStatus: 'loading', appointmentErr: null })
-        // try {
-        //   const c = await POST(CLINIC, 'login', values)
-        //   this.setState({ appointmentStatus: 'success', appointmentErr: null })
-        //   this.redirectToClinic(c._id)
-        // } catch (err) {
-        //   this.setState({ appointmentStatus: 'error', appointmentErr: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง' })
-        //   message.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
-        // }
+        const { token } = await login(values)
+        global.localStorage.setItem('token', token)
+        
+        history.push(`/admin`)
       }
     })
   }
