@@ -75,7 +75,7 @@ class LoginForm extends React.Component {
         <FormItem label={'firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{ options: ROLES }}/>
+        {/* <FormItem label={'role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{ options: ROLES }}/> */}
         <FormItem label={'departments'} field={'departments'} message={'Please input departments'} getFieldDecorator={getFieldDecorator} required={false}/>
         <FormItem label={'tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} required={false}/>
         <NavigationButton onSubmit={this.handleSubmit} last />
@@ -89,9 +89,12 @@ const WrappedLogin = Form.create()(LoginForm)
 export default enhance((props) => {
   return (
     <Container>
+      <div>
+      <h1>Profile</h1>
       <FormContainer>
         <WrappedLogin {...props} />
       </FormContainer>
+      </div>
     </Container>
   )
 })

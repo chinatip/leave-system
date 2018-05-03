@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import _ from 'lodash'
 import ProfileModal from './ProfileModal'
+import { Button } from 'antd'
 
 import { Table } from 'common'
 import { verifyToken, loadUsers, loadDepartments, loadTasks } from 'common/services'
@@ -20,7 +21,8 @@ const enhance = compose(
 class ManageUser extends React.Component {
   state = {
     visible: false,
-    data: null
+    data: null,
+    isAdd: false
   }
 
   formatData() {
@@ -55,24 +57,40 @@ class ManageUser extends React.Component {
       columns.push({
         title: 'Edit',
         key: 'edit',
-        render: (t) => <button onClick={() => this.handleEdit(t)}>Edit</button>
+        render: (t) => <Button onClick={() => this.handleEdit(t)}>Edit</Button>
       })
     }
+    let dataSource = []
+    if (edit) { 
+      dataSource = users
+    } else {
+      dataSource = _.filter(users, u => u.role === 'subordinate' && u.department === user.department)
+    }
 
-    return { dataSource: _.filter(users, u => u.role === 'subordinate' && u.department === user.department), columns }
+    return { dataSource, columns }
+  }
+
+  handleAdd = () => {
+    this.handleEdit()
+    this.setState({ isAdd: true })
   }
 
   handleEdit = (data = null) => {
-    console.log(data)
     this.setState({ data, visible: !this.state.visible })
+
+    if (!this.state.visible) {
+      this.setState({ isAdd: false })
+    }
   }
 
   render() {
-    const { visible, data } = this.state
+    const { visible, data, isAdd } = this.state
     const { users, edit, tasks, departments } = this.props
     const { dataSource, columns } = this.formatData()
 
     return (<div>
+      <h1>Manage {edit? 'Users': 'Subordinates'}</h1>
+      <Button onClick={this.handleAdd}>Add user</Button>
       <Table dataSource={dataSource} columns={columns} />
       { edit && visible && <ProfileModal
           visible={visible}
@@ -81,6 +99,7 @@ class ManageUser extends React.Component {
           user={data}
           tasks={tasks}
           departments={departments}
+          isAdd={isAdd}
         />}
     </div>)
   }

@@ -8,6 +8,7 @@ import Navigation from './Navigation'
 import { verifyToken } from 'common/services'
 import ManageUser from './ManageUser';
 import Profile from './Profile'
+import Leave from './Leave'
 
 const Container = styled.div`
   width: 100%;
@@ -42,8 +43,8 @@ const SUP_MENU = {
 }
 
 const SUB_MENU = {
-  Profile: 'user/profile',
-  'Manage Subordinates': 'user/leaves'
+  Profile: 'profile',
+  'Leave': 'leaves'
 }
 
 class Admin extends React.Component {
@@ -60,8 +61,8 @@ class Admin extends React.Component {
     
     if (type === 'profile') {
       return <Profile />
-    } else if (type === 'manage') {
-      return <ManageUser edit />
+    } else if (type === 'leaves') {
+      return <Leave />
     }
 
     return <Profile />
@@ -72,10 +73,10 @@ class Admin extends React.Component {
 
     return (
       <Container>
-        Admin
+        <h1>Subordinate</h1>
         <Header>{user.username}</Header>
         <InnerContainer>
-          <Navigation menus={ADMIN_MENU} history={history} value={this.state.current} onChange={this.handleCurrent} />
+          <Navigation menus={SUB_MENU} history={history} value={this.state.current} onChange={this.handleCurrent} />
           { this.renderAdmin() }
         </InnerContainer>
       </Container>
@@ -87,7 +88,7 @@ export default enhance((props) => {
   const { user, history, match } = props
   const { role } = user
 
-  if(role === 'admin') return <Admin {...props} />
+  if(role === 'subordinate') return <Admin {...props} />
   else {
     history.push(`/${role}`)
     return <noscript />

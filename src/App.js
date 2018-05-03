@@ -8,6 +8,7 @@ import Admin from './components/Admin'
 import Profile from './components/Profile'
 import ManageUser from './components/ManageUser'
 import Supervisor from './components/Supervisor'
+import Subordinate from './components/Subordinate'
 
 const Container = styled.div`
   width: 100vw;
@@ -28,6 +29,8 @@ class App extends Component {
             <Route path="/admin/:type" component={Admin} />
             <Route exact path="/supervisor" render={() => <Redirect to="/supervisor/profile" />} />
             <Route path="/supervisor/:type" component={Supervisor} />
+            <Route exact path="/subordinate" render={() => <Redirect to="/subordinate/profile" />} />
+            <Route path="/subordinate/:type" component={Subordinate} />
           </Switch>
         </Router>
       </Container>

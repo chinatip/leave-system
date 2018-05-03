@@ -75,6 +75,7 @@ class Admin extends React.Component {
 
     return (
       <Container>
+        <h1>Supervisor</h1>
         <Header>{user.username}</Header>
         <InnerContainer>
           <Navigation menus={SUP_MENU} history={history} value={this.state.current} onChange={this.handleCurrent} />
