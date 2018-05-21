@@ -10,6 +10,10 @@ import { Button } from 'antd'
 import { Table } from 'common'
 import { verifyToken, loadUsers, loadDepartments, loadTasks } from 'common/services'
 
+const AddButton = styled(Button)`
+  margin-bottom: 15px;
+`
+
 const enhance = compose(
   resolve("user", async (props) => await verifyToken()),
   resolve("users", async (props) => await loadUsers()),
@@ -20,7 +24,7 @@ const enhance = compose(
 
 const getDepartment = (departments, id) => {
   const dep = _.filter(departments, (d) => d.id === id)[0]
-  console.log(dep, departments)
+
   return dep && dep.name
 }
 
@@ -43,10 +47,9 @@ class ManageUser extends React.Component {
         dataIndex: 'role',
         key: 'role'
       }, {
-        title: 'แผนก',
-        dataIndex: 'department',
+        title: 'Department',
         key: 'department',
-        render: (dep) => getDepartment(departments, dep)
+        render: ({ role, department }) => role === 'admin'? '-': getDepartment(departments, department)
       }, {
         title: 'Tasks',
         dataIndex: 'tasks',
@@ -97,7 +100,7 @@ class ManageUser extends React.Component {
 
     return (<div>
       <h1>Manage {edit? 'Users': 'Subordinates'}</h1>
-      <Button onClick={this.handleAdd}>Add user</Button>
+      <AddButton onClick={this.handleAdd}>Add user</AddButton>
       <Table dataSource={dataSource} columns={columns} />
       { edit && visible && <ProfileModal
           visible={visible}

@@ -15,8 +15,6 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
 `
 const Flex = styled.div`
   display: flex;
@@ -27,7 +25,7 @@ const ROLES = [
   {label: 'Supervisor', value: 'supervisor'},
   {label: 'Subordinate', value: 'subordinate'}
 ]
-class LoginForm extends React.Component {
+class ProfileForm extends React.Component {
   state = {}
 
   componentDidMount () {
@@ -67,32 +65,30 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { form } = this.props
+    const { form, user } = this.props
     const { getFieldDecorator } = form
 
     return (
-      <FormContainer width={700}>
-        <FormItem label={'firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
-        {/* <FormItem label={'role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{ options: ROLES }}/> */}
-        {/* <FormItem label={'departments'} field={'departments'} message={'Please input departments'} getFieldDecorator={getFieldDecorator} required={false}/> */}
-        <FormItem label={'tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} required={false}/>
+      <FormContainer width={1000}>
+        <FormItem label={'Firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} />
+        <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
+        <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
+        { user.role !== 'admin' && <FormItem label={'Tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} required={false}/>}
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
     )
   }
 }
 
-const WrappedLogin = Form.create()(LoginForm)
+const WrappedProfile = Form.create()(ProfileForm)
 
 export default enhance((props) => {
   return (
     <Container>
-      <div>
+      <div style={{width: '100%'}}>
       <h1>Profile</h1>
       <FormContainer>
-        <WrappedLogin {...props} />
+        <WrappedProfile {...props} />
       </FormContainer>
       </div>
     </Container>

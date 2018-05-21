@@ -2,9 +2,22 @@ import { Modal, Button } from 'antd'
 import { Form, message } from 'antd'
 import React, { Component } from 'react'
 import Profile from './Profile';
+import styled, { injectGlobal } from 'styled-components'
 
 import { FormContainer, FormItem, NavigationButton } from 'common/form'
 import { updateUser, createUser } from 'common/services'
+
+const GlobalStyles = ({ theme }) => {
+  injectGlobal `
+    .profile-modal {
+      .ant-modal-footer {
+        display: none;
+      }
+    }
+  `;
+
+  return null;
+}
 
 const ROLES = [
   {label: 'Admin', value: 'admin'},
@@ -17,6 +30,7 @@ class LoginForm extends React.Component {
 
   componentDidMount () {
     const { form, user, isAdd } = this.props
+
     if (!isAdd) {
       form.setFields({
         firstname: {
@@ -39,6 +53,12 @@ class LoginForm extends React.Component {
         } 
       })
     }
+
+  }
+
+  isAdmin = () => {
+    const { user } = this.props
+    return user && user.role === 'admin'
   }
   
   handleSubmit = (e) => {
@@ -59,7 +79,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { form, departments, tasks, isAdd } = this.props
+    const { form, departments, tasks, isAdd, user } = this.props
     const { getFieldDecorator } = form
     const depOptions = departments.map((d) => ({ label: d.name, value: d._id}))
     const taskOptions = tasks.map((d) => ({ label: d.name, value: d._id}))
@@ -67,15 +87,16 @@ class LoginForm extends React.Component {
     return (
       <FormContainer width={700}>
         { isAdd && <div style={{ padding: '20px'}}>
-          <FormItem label={'username'} field={'username'} message={'Please input username'} getFieldDecorator={getFieldDecorator} />
-          <FormItem label={'password'} field={'password'} message={'Please input password'} getFieldDecorator={getFieldDecorator} />
+          <FormItem label={'Username'} field={'username'} message={'Please input username'} getFieldDecorator={getFieldDecorator} />
+          <FormItem label={'Password'} field={'password'} message={'Please input password'} getFieldDecorator={getFieldDecorator} />
         </div>}
-        <FormItem label={'firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{options: ROLES}}/>
-        <FormItem label={'departments'} field={'departments'} message={'Please input departments'} getFieldDecorator={getFieldDecorator} options={{options: depOptions}} />
-        <FormItem label={'tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} options={{options: taskOptions}} />
+        <FormItem label={'Firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} />
+        <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
+        <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
+        <FormItem label={'Role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{options: ROLES}}/>
+        
+        {!this.isAdmin() && <FormItem label={'Departments'} field={'departments'} message={'Please input departments'} getFieldDecorator={getFieldDecorator} options={{options: depOptions}} />}
+        {!this.isAdmin() && <FormItem label={'Tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} options={{options: taskOptions}} />}
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
     )
@@ -89,13 +110,17 @@ class ProfielModal extends Component {
     const { visible, onCancel } = this.props
     
     return (
-      <Modal
-        visible={visible}
-        onOk={onCancel}
-        onCancel={onCancel}
-      >
-        <WrappedLogin {...this.props}/>
-      </Modal>
+      <div>
+        <GlobalStyles />
+        <Modal
+          wrapClassName={'profile-modal'}
+          visible={visible}
+          onOk={onCancel}
+          onCancel={onCancel}
+        >
+          <WrappedLogin {...this.props}/>
+        </Modal>
+      </div>
     )
   }
 }

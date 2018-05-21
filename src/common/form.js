@@ -137,7 +137,16 @@ const FormContainerWrapper = styled.div`
 
   .ant-input {
     ${cssFontInput};
-    border: 1px solid rgba(7, 188, 206, 0.42)
+    border: 1px solid rgba(7, 188, 206, 0.42);
+  }
+
+  .ant-select-selection {
+    ${cssFontInput};
+    border: 1px solid rgba(7, 188, 206, 0.42);
+
+    .ant-input {
+      color: rgba(7, 188, 206, 0.42);
+    }
   }
 
   .ant-form-item-control-wrapper, .ant-calendar-picker {

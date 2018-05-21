@@ -17,6 +17,10 @@ const Container = styled.div`
 const InnerContainer = styled.div`
   display: flex;
 `
+const ContentContainer = styled.div`
+  margin: auto;
+  width: 700px;
+`
 
 const enhance = compose(
   resolve("user", async (props) => await verifyToken()),
@@ -68,7 +72,7 @@ class Admin extends React.Component {
         <Header type='Admin' user={user} />
         <InnerContainer>
           <Navigation menus={ADMIN_MENU} history={history} value={this.state.current} onChange={this.handleCurrent} />
-          { this.renderAdmin() }
+          <ContentContainer>{ this.renderAdmin() }</ContentContainer>
         </InnerContainer>
       </Container>
     )
