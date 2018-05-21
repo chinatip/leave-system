@@ -9,20 +9,18 @@ import { verifyToken } from 'common/services'
 import ManageUser from './ManageUser';
 import Profile from './Profile'
 import ManageLeave from './ManageLeave'
+import Header from './Header'
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
 `
-const Header = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex
-  align-items: center;
-  justify-content: flex-end;
-`
 const InnerContainer = styled.div`
   display: flex;
+`
+const ContentContainer = styled.div`
+  margin: auto;
+  width: 700px;
 `
 
 const enhance = compose(
@@ -55,7 +53,7 @@ class Admin extends React.Component {
     this.setState({ current })
   }
 
-  renderAdmin() {
+  renderSupervisor() {
     const type = this.state.current
     
     if (type === 'profile') {
@@ -74,11 +72,10 @@ class Admin extends React.Component {
 
     return (
       <Container>
-        <h1>Supervisor</h1>
-        <Header>{user.username}</Header>
+        <Header type='Supervisor' user={user} />
         <InnerContainer>
           <Navigation menus={SUP_MENU} history={history} value={this.state.current} onChange={this.handleCurrent} />
-          { this.renderAdmin() }
+          <ContentContainer>{ this.renderSupervisor() }</ContentContainer>
         </InnerContainer>
       </Container>
     )

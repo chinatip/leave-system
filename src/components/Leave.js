@@ -3,9 +3,14 @@ import { Table } from 'common'
 import { compose } from 'recompose'
 import { resolve } from "react-resolver"
 import { Button } from 'antd'
+import styled from 'styled-components'
 
 import { verifyToken, loadUsers, loadLeaves } from 'common/services'
 import LeaveModal from './LeaveModal';
+
+const AddButton = styled(Button)`
+  margin-bottom: 15px;
+`
 
 const enhance = compose(
   resolve("user", async (props) => await verifyToken()),
@@ -52,7 +57,7 @@ class Leave extends React.Component {
     return (
       <div>
         <h1>Leave</h1>
-        <Button onClick={this.handleAddLeave}>Add Leave</Button>
+        <AddButton onClick={this.handleAddLeave}>Add Leave</AddButton>
         <Table dataSource={dataSource} columns={columns} />
         {visible && <LeaveModal onCancel={this.handleAddLeave} visible={visible} user={user} users={users}/>}
       </div>

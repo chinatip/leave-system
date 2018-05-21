@@ -64,7 +64,7 @@ const getOptions = (opts) => {
   return { selectOptions, mode }
 }
 
-const getInputItem = ({ date, textarea, options }) => {
+const getInputItem = ({ date, textarea, options, password }) => {
   if (date) {
     return <DatePicker value={date} />
   } else if (textarea) {
@@ -81,7 +81,7 @@ const getInputItem = ({ date, textarea, options }) => {
     )
   }
 
-  return <Input />
+  return <Input type={password? 'password': 'text'} />
 }
 
 export const FormItem = ({ getFieldDecorator, label, message, field, required = true, hidden, ...props }) => {

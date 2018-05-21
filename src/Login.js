@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
     return (
       <FormContainer width={700}>
         <FormItem label={'Username'} field={'username'} message={'username'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'Password'} field={'password'} message={'password'} getFieldDecorator={getFieldDecorator} />
+        <FormItem label={'Password'} field={'password'} message={'password'} getFieldDecorator={getFieldDecorator} password />
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
     )

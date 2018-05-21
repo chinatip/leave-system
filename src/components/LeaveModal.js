@@ -47,7 +47,6 @@ class LoginForm extends React.Component {
           },
           status: 'waiting'
         })
-        // console.log(u)
         onCancel()
       }
     })
@@ -63,11 +62,11 @@ class LoginForm extends React.Component {
     return (
       <FormContainer width={700}>
         {/* <FormItem label={'firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} /> */}
-        <FormItem label={'detail'} field={'detail'} message={'Please input detail'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'type'} field={'type'} message={'Please input type'} getFieldDecorator={getFieldDecorator} options={{ options: TYPES }}/>
-        <FormItem label={'substitute'} field={'substitute'} message={'Please input a substitute'} getFieldDecorator={getFieldDecorator} options={{ options: subOptions }}/>
-        <FormItem label={'date'} field={'date'} message={'Please input date'} getFieldDecorator={getFieldDecorator} date/>
-        <FormItem label={'how many days?'} field={'period'} message={'Please input period'} getFieldDecorator={getFieldDecorator} />
+        <FormItem label={'Detail'} field={'detail'} message={'Please input detail'} getFieldDecorator={getFieldDecorator} />
+        <FormItem label={'Type'} field={'type'} message={'Please input type'} getFieldDecorator={getFieldDecorator} options={{ options: TYPES }}/>
+        <FormItem label={'Substitute'} field={'substitute'} message={'Please input a substitute'} getFieldDecorator={getFieldDecorator} options={{ options: subOptions }}/>
+        <FormItem label={'Date'} field={'date'} message={'Please input date'} getFieldDecorator={getFieldDecorator} date/>
+        <FormItem label={'How many days?'} field={'period'} message={'Please input period'} getFieldDecorator={getFieldDecorator} />
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
     )
