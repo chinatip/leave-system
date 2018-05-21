@@ -23,7 +23,7 @@ const enhance = compose(
 )
 
 const getDepartment = (departments, id) => {
-  const dep = _.filter(departments, (d) => d.id === id)[0]
+  const dep = _.filter(departments, (d) => d._id === id)[0]
 
   return dep && dep.name
 }
