@@ -17,10 +17,14 @@ const Container = styled.div`
 `
 const InnerContainer = styled.div`
   display: flex;
+  height: 100%;
 `
 const ContentContainer = styled.div`
   margin: auto;
   width: 800px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 `
 
 const enhance = compose(

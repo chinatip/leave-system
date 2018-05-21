@@ -20,6 +20,13 @@ const GlobalStyles = ({ theme }) => {
   return null;
 }
 
+const InnerForm = styled.div`
+  background: rgba(230, 247, 255, 0.77);
+  padding: 20px;
+  border-radius: 5px;
+  margin: 15px 0;
+`
+
 const ROLES = [
   {label: 'Admin', value: 'admin'},
   {label: 'Supervisor', value: 'supervisor'},
@@ -101,10 +108,10 @@ class LoginForm extends React.Component {
 
     return (
       <FormContainer width={700}>
-        { isAdd && <div style={{ padding: '20px'}}>
+        { isAdd && <InnerForm>
           <FormItem label={'Username'} field={'username'} message={'Please input username'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
           <FormItem label={'Password'} field={'password'} message={'Please input password'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
-        </div>}
+        </InnerForm>}
         <FormItem label={'Firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
         <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
         <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} disabled={isDisable} required={false} />
