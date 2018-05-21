@@ -18,6 +18,12 @@ const enhance = compose(
   withRouter
 )
 
+const getDepartment = (departments, id) => {
+  const dep = _.filter(departments, (d) => d.id === id)[0]
+  console.log(dep, departments)
+  return dep && dep.name
+}
+
 class ManageUser extends React.Component {
   state = {
     visible: false,
@@ -25,7 +31,7 @@ class ManageUser extends React.Component {
     isAdd: false
   }
 
-  formatData() {
+  formatData(departments) {
     const { user, users, edit = false, onEdit } = this.props
     const columns = [
       {
@@ -39,7 +45,8 @@ class ManageUser extends React.Component {
       }, {
         title: 'แผนก',
         dataIndex: 'department',
-        key: 'department'
+        key: 'department',
+        render: (dep) => getDepartment(departments, dep)
       }, {
         title: 'Tasks',
         dataIndex: 'tasks',
@@ -86,7 +93,7 @@ class ManageUser extends React.Component {
   render() {
     const { visible, data, isAdd } = this.state
     const { users, edit, tasks, departments } = this.props
-    const { dataSource, columns } = this.formatData()
+    const { dataSource, columns } = this.formatData(departments)
 
     return (<div>
       <h1>Manage {edit? 'Users': 'Subordinates'}</h1>

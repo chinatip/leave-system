@@ -28,7 +28,7 @@ class Navigation extends React.Component {
             defaultOpenKeys={['sub1']}
             mode="inline"
           >
-          <SubMenu key="sub1" title={<span>Navigation One</span>}>
+          <SubMenu key="sub1" title={<span>Menu</span>}>
             { _.map(menus, (a, title) => 
               <Menu.Item key={a}>{title}</Menu.Item>
             )}

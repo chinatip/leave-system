@@ -24,7 +24,6 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
-            <Route path="/admin" component={Admin} />
             <Route exact path="/admin" render={() => <Redirect to="/admin/profile" />} />
             <Route path="/admin/:type" component={Admin} />
             <Route exact path="/supervisor" render={() => <Redirect to="/supervisor/profile" />} />

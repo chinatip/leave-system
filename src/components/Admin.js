@@ -8,18 +8,11 @@ import Navigation from './Navigation'
 import { verifyToken } from 'common/services'
 import ManageUser from './ManageUser';
 import Profile from './Profile'
+import Header from './Header'
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding-top: 10px;
-`
-const Header = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex
-  align-items: center;
-  justify-content: flex-end;
 `
 const InnerContainer = styled.div`
   display: flex;
@@ -72,8 +65,7 @@ class Admin extends React.Component {
 
     return (
       <Container>
-        Admin
-        <Header>{user.username}</Header>
+        <Header type='Admin' user={user} />
         <InnerContainer>
           <Navigation menus={ADMIN_MENU} history={history} value={this.state.current} onChange={this.handleCurrent} />
           { this.renderAdmin() }
