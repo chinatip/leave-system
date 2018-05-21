@@ -28,6 +28,16 @@ const getDepartment = (departments, id) => {
   return dep && dep.name
 }
 
+const getTask = (tasks, list) => {
+  if (list.length > 0) {
+    const task = _.filter(tasks, (d) => d._id === list[0])[0]
+  
+    return task && task.name
+  }
+
+  return ''
+}
+
 class ManageUser extends React.Component {
   state = {
     visible: false,
@@ -35,7 +45,7 @@ class ManageUser extends React.Component {
     isAdd: false
   }
 
-  formatData(departments) {
+  formatData(departments, tasks) {
     const { user, users, edit = false, onEdit } = this.props
     const columns = [
       {
@@ -54,12 +64,12 @@ class ManageUser extends React.Component {
         title: 'Tasks',
         dataIndex: 'tasks',
         key: 'tasks',
-        render: (t) => <div>{_.map(t, t => t.name)}</div>
+        render: (t) => getTask(tasks, t)
       }, {
-        title: 'Contact',
+        title: 'Line ID',
         dataIndex: 'contact',
         key: 'contact',
-        render: (t) => <div>{_.map(t, t => t.name)}</div>
+        render: (contact) => contact? contact.lineid: ''
       },
       {
         title: 'Edit',
@@ -94,7 +104,7 @@ class ManageUser extends React.Component {
   render() {
     const { visible, data, isAdd } = this.state
     const { users, edit, tasks, departments } = this.props
-    const { dataSource, columns } = this.formatData(departments)
+    const { dataSource, columns } = this.formatData(departments, tasks)
 
     return (<div>
       <h1>Manage {edit? 'Users': 'Subordinates'}</h1>

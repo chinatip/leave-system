@@ -25,7 +25,7 @@ export const NavigationButton = ({ onSubmit, onBackStep, last, loading = false }
   return (
     <NavigationContainer>
       {onBackStep && <FormButton onClick={onBackStep}>{'ย้อนกลับ'}</FormButton>}
-      <FormButton loading={loading} onClick={onSubmit}>{ !last? 'ต่อไป': 'ตกลง'}</FormButton>
+      <FormButton loading={loading} onClick={onSubmit}>{ !last? 'ต่อไป': 'Submit'}</FormButton>
     </NavigationContainer>
   )
 }

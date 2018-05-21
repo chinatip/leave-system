@@ -57,7 +57,10 @@ class LoginForm extends React.Component {
         },
         tasks: {
           value: user.tasks
-        } 
+        },
+        lineid: {
+          value: user.contact? user.contact.lineid: null
+        }
       })
     }
 
@@ -74,11 +77,13 @@ class LoginForm extends React.Component {
     e.preventDefault()
     form.validateFields(async (err, values) => {
       if (!err) {
+        const contact = { lineid: values.lineid }
+
         if (isAdd) {
-          const u = await createUser({ ...user, ...values})
+          const u = await createUser({ ...user, ...values, contact })
           console.log(u)
         } else {
-          const u = await updateUser({ ...user, ...values})
+          const u = await updateUser({ ...user, ...values, contact })
           console.log(u)
         }
       }
@@ -102,11 +107,12 @@ class LoginForm extends React.Component {
         </div>}
         <FormItem label={'Firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
         <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
-        <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
+        <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} disabled={isDisable} required={false} />
         <FormItem label={'Role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{options: ROLES}} disabled={isDisable} />
         
         {!this.isAdmin() && <FormItem label={'Departments'} field={'departments'} message={'Please input departments'} getFieldDecorator={getFieldDecorator} options={{options: depOptions}} disabled={isDisable}  />}
-        {!this.isAdmin() && <FormItem label={'Tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} options={{options: taskOptions}} />}
+        {!this.isAdmin() && <FormItem label={'Tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} options={{options: taskOptions}} required={false} />}
+        <FormItem label={'Line ID'} field={'lineid'} message={'Please input Line ID'} getFieldDecorator={getFieldDecorator} disabled={isDisable} required={false} />
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
     )

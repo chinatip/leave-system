@@ -49,7 +49,10 @@ class ProfileForm extends React.Component {
       },
       tasks: {
         value: user.tasks
-      } 
+      },
+      lineid: {
+        value: user.contact? user.contact.lineid: null
+      }
     });
   }
   
@@ -58,8 +61,10 @@ class ProfileForm extends React.Component {
 
     e.preventDefault()
     form.validateFields(async (err, values) => {
+      const contact = { lineid: values.lineid }
+
       if (!err) {
-        const u = await updateUser({ ...user, ...values})
+        const u = await updateUser({ ...user, ...values, contact})
         console.log(u)
       }
     })
@@ -76,6 +81,7 @@ class ProfileForm extends React.Component {
         <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
         { user.role !== 'admin' && <FormItem label={'Tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} options={{options: taskOptions}} />}
+        <FormItem label={'Line ID'} field={'lineid'} message={'Please input Line ID'} getFieldDecorator={getFieldDecorator} required={false} />
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
     )
