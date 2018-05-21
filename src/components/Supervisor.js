@@ -20,7 +20,7 @@ const InnerContainer = styled.div`
 `
 const ContentContainer = styled.div`
   margin: auto;
-  width: 700px;
+  width: 800px;
 `
 
 const enhance = compose(

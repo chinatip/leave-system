@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import _ from 'lodash'
 import ProfileModal from './ProfileModal'
+import { Button } from 'antd'
 
 import { Table } from 'common'
 import { verifyToken, loadUsers, loadLeaves } from 'common/services'
@@ -34,21 +35,29 @@ class ManageUser extends React.Component {
         key: 'substitute',
         render: (r) => `${r.firstname || ''} ${r.lastname || ''}`
       },, {
-        title: 'date',
+        title: 'Date',
         dataIndex: 'period.date',
         key: 'period'
       }, {
-        title: 'day',
+        title: 'Day',
         dataIndex: 'period.period',
         key: 'period'
       }, {
-        title: 'type',
+        title: 'Type',
         dataIndex: 'type',
         key: 'type'
       }, {
-        title: 'status',
+        title: 'Status',
         dataIndex: 'status',
         key: 'status'
+      }, {
+        title: 'Approve',
+        key: 'approve',
+        render: ({ status }) => status === 'waiting'? <Button>Approve</Button>: ''
+      }, {
+        title: 'Cancel',
+        key: 'cancel',
+        render: ({ status }) => status === 'waiting'? <Button>Cancel</Button>: ''
       }
     ] 
 
