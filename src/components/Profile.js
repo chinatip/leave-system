@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { compose, withProps } from 'recompose'
 import { Form, message } from 'antd'
-import { updateUser, verifyToken } from 'common/services'
+import { updateUser, loadTasks, verifyToken } from 'common/services'
 import { resolve } from "react-resolver"
 
 import { FormContainer, FormItem, NavigationButton } from 'common/form'
 
 const enhance = compose(
   resolve("user", async (props) => await verifyToken()),
+  resolve("tasks", async (props) => await loadTasks()),
 )
 
 const Container = styled.div`
@@ -65,15 +66,16 @@ class ProfileForm extends React.Component {
   }
 
   render() {
-    const { form, user } = this.props
+    const { form, user, tasks } = this.props
     const { getFieldDecorator } = form
+    const taskOptions = tasks.map((d) => ({ label: d.name, value: d._id}))
 
     return (
       <FormContainer width={1000}>
         <FormItem label={'Firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
-        { user.role !== 'admin' && <FormItem label={'Tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} required={false}/>}
+        { user.role !== 'admin' && <FormItem label={'Tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} options={{options: taskOptions}} />}
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
     )
