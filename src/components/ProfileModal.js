@@ -3,6 +3,7 @@ import { Form, message } from 'antd'
 import React, { Component } from 'react'
 import Profile from './Profile';
 import styled, { injectGlobal } from 'styled-components'
+import _ from 'lodash'
 
 import { FormContainer, FormItem, NavigationButton } from 'common/form'
 import { updateUser, createUser } from 'common/services'
@@ -29,9 +30,18 @@ class LoginForm extends React.Component {
   state = {}
 
   componentDidMount () {
-    const { form, user, isAdd } = this.props
+    const { form, user, isAdd, departments } = this.props
 
     if (!isAdd) {
+      const dep = _.filter(departments, (d) => d._id === user.department)[0]
+      if (dep) {
+        form.setFields({
+          departments: {
+            value: dep.name
+          }
+        })
+      }
+
       form.setFields({
         firstname: {
           value: user.firstname
@@ -44,9 +54,6 @@ class LoginForm extends React.Component {
         },
         role: {
           value: user.role
-        },
-        departments: {
-          value: user.departments
         },
         tasks: {
           value: user.tasks
@@ -62,7 +69,7 @@ class LoginForm extends React.Component {
   }
   
   handleSubmit = (e) => {
-    const { form, user, isAdd } = this.props
+    const { form, user, isAdd, onCancel } = this.props
 
     e.preventDefault()
     form.validateFields(async (err, values) => {
@@ -75,6 +82,8 @@ class LoginForm extends React.Component {
           console.log(u)
         }
       }
+
+      onCancel()
     })
   }
 
