@@ -64,7 +64,7 @@ const getOptions = (opts) => {
   return { selectOptions, mode }
 }
 
-const getInputItem = ({ date, textarea, options, password }) => {
+const getInputItem = ({ date, textarea, options, password, disabled }) => {
   if (date) {
     return <DatePicker value={date} />
   } else if (textarea) {
@@ -75,13 +75,13 @@ const getInputItem = ({ date, textarea, options, password }) => {
     return (
       <Select mode={mode}>
         { selectOptions.map((s) => {
-          return <Select.Option value={s.value}>{s.label}</Select.Option>
+          return <Select.Option value={s.value} disabled={disabled}>{s.label}</Select.Option>
         })}
       </Select>
     )
   }
 
-  return <Input type={password? 'password': 'text'} />
+  return <Input type={password? 'password': 'text'} disabled={disabled} />
 }
 
 export const FormItem = ({ getFieldDecorator, label, message, field, required = true, hidden, ...props }) => {

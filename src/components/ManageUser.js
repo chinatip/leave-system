@@ -60,16 +60,14 @@ class ManageUser extends React.Component {
         dataIndex: 'contact',
         key: 'contact',
         render: (t) => <div>{_.map(t, t => t.name)}</div>
-      }
-    ] 
-
-    if (edit) {
-      columns.push({
+      },
+      {
         title: 'Edit',
         key: 'edit',
         render: (t) => <Button onClick={() => this.handleEdit(t)}>Edit</Button>
-      })
-    }
+      }
+    ] 
+    
     let dataSource = []
     if (edit) { 
       dataSource = users
@@ -100,9 +98,9 @@ class ManageUser extends React.Component {
 
     return (<div>
       <h1>Manage {edit? 'Users': 'Subordinates'}</h1>
-      <AddButton onClick={this.handleAdd}>Add user</AddButton>
+      {edit && <AddButton onClick={this.handleAdd}>Add user</AddButton>}
       <Table dataSource={dataSource} columns={columns} />
-      { edit && visible && <ProfileModal
+      { visible && <ProfileModal
           visible={visible}
           onOk={this.handleEdit}
           onCancel={this.handleEdit}
@@ -110,6 +108,7 @@ class ManageUser extends React.Component {
           tasks={tasks}
           departments={departments}
           isAdd={isAdd}
+          supervisor={!edit}
         />}
     </div>)
   }

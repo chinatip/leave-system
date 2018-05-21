@@ -88,23 +88,24 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { form, departments, tasks, isAdd, user } = this.props
+    const { form, departments, tasks, isAdd, user, supervisor } = this.props
     const { getFieldDecorator } = form
     const depOptions = departments.map((d) => ({ label: d.name, value: d._id}))
     const taskOptions = tasks.map((d) => ({ label: d.name, value: d._id}))
+    const isDisable = supervisor
 
     return (
       <FormContainer width={700}>
         { isAdd && <div style={{ padding: '20px'}}>
-          <FormItem label={'Username'} field={'username'} message={'Please input username'} getFieldDecorator={getFieldDecorator} />
-          <FormItem label={'Password'} field={'password'} message={'Please input password'} getFieldDecorator={getFieldDecorator} />
+          <FormItem label={'Username'} field={'username'} message={'Please input username'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
+          <FormItem label={'Password'} field={'password'} message={'Please input password'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
         </div>}
-        <FormItem label={'Firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} />
-        <FormItem label={'Role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{options: ROLES}}/>
+        <FormItem label={'Firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
+        <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
+        <FormItem label={'Picture'} field={'picture'} message={'Please input picture'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
+        <FormItem label={'Role'} field={'role'} message={'Please input role'} getFieldDecorator={getFieldDecorator} options={{options: ROLES}} disabled={isDisable} />
         
-        {!this.isAdmin() && <FormItem label={'Departments'} field={'departments'} message={'Please input departments'} getFieldDecorator={getFieldDecorator} options={{options: depOptions}} />}
+        {!this.isAdmin() && <FormItem label={'Departments'} field={'departments'} message={'Please input departments'} getFieldDecorator={getFieldDecorator} options={{options: depOptions}} disabled={isDisable}  />}
         {!this.isAdmin() && <FormItem label={'Tasks'} field={'tasks'} message={'Please input tasks'} getFieldDecorator={getFieldDecorator} options={{options: taskOptions}} />}
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
