@@ -5,6 +5,7 @@ import { resolve } from "react-resolver"
 import { Button } from 'antd'
 import styled from 'styled-components'
 import _ from 'lodash'
+import moment from 'moment'
 
 import { verifyToken, loadUsers, loadLeaves } from 'common/services'
 import LeaveModal from './LeaveModal';
@@ -30,13 +31,13 @@ class Leave extends React.Component {
 
   formatData() {
     const { leaves, onEdit, user } = this.props
-    
+    console.log(leaves)
     let columns = [
       {
         title: 'Date',
-        dataIndex: 'period',
+        dataIndex: 'period.date',
         key: 'date',
-        render: (date) => date? date.date: ''
+        render: (date) => moment(date, 'DD-MM-YYYY HH:mm').format('DD MMM YYYY')
       }, {
         title: 'Substitute',
         dataIndex: 'substitute',
@@ -59,7 +60,7 @@ class Leave extends React.Component {
 
   render() {
     const { visible } = this.state
-    const { users, user } = this.props
+    const { users, user, leaves } = this.props
     const { dataSource, columns } = this.formatData()
     const depUsers = _.filter(users, (u) => u.department === user.department)
 
@@ -68,7 +69,7 @@ class Leave extends React.Component {
         <h1>Leave</h1>
         <AddButton onClick={this.handleAddLeave}>Add Leave</AddButton>
         <Table dataSource={dataSource} columns={columns} />
-        {visible && <LeaveModal onCancel={this.handleAddLeave} visible={visible} user={user} users={depUsers}/>}
+        {visible && <LeaveModal onCancel={this.handleAddLeave} visible={visible} user={user} users={depUsers} leaves={leaves} />}
       </div>
     )
   }

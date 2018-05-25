@@ -4,10 +4,11 @@ import { resolve } from "react-resolver"
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import _ from 'lodash'
-import ProfileModal from './ProfileModal'
 import { Button } from 'antd'
+import moment from 'moment'
 
 import { Table } from 'common'
+import ProfileModal from './ProfileModal'
 import { verifyToken, loadUsers, loadLeaves } from 'common/services'
 
 const enhance = compose(
@@ -37,7 +38,8 @@ class ManageUser extends React.Component {
       },, {
         title: 'Date',
         dataIndex: 'period.date',
-        key: 'period'
+        key: 'period',
+        render: (date) => moment(date, 'DD-MM-YYYY HH:mm').format('DD MMM YYYY')
       }, {
         title: 'Type',
         dataIndex: 'type',
