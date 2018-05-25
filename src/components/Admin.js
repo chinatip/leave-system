@@ -37,10 +37,15 @@ const ADMIN_MENU = {
 }
 
 class Admin extends React.Component {
-  state = {
-    current: 'profile'
-  }
+  constructor(props) {
+    super()
 
+    const { params: { type }} = props.match
+    this.state = {
+      current: type || 'profile'
+    }
+  }
+  
   handleCurrent = (current) => {
     this.setState({ current })
   }

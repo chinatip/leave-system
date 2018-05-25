@@ -103,7 +103,7 @@ class ManageUser extends React.Component {
 
   render() {
     const { visible, data, isAdd } = this.state
-    const { users, edit, tasks, departments } = this.props
+    const { users, edit, tasks, departments, history } = this.props
     const { dataSource, columns } = this.formatData(departments, tasks)
 
     return (<div>

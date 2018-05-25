@@ -96,6 +96,7 @@ class LoginForm extends React.Component {
       }
 
       onCancel()
+      window.location.reload()
     })
   }
 
