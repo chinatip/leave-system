@@ -22,7 +22,7 @@ class ManageUser extends React.Component {
   }
 
   formatData() {
-    const { leaves } = this.props
+    const { user, leaves } = this.props
     const columns = [
       {
         title: 'Name',
@@ -57,7 +57,8 @@ class ManageUser extends React.Component {
       }
     ] 
 
-    return { dataSource: leaves, columns }
+    const depLeaves = _.filter(leaves, (l) => l.user.department === user.department)
+    return { dataSource: depLeaves, columns }
   }
 
   handleEdit = () => {

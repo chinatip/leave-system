@@ -66,6 +66,10 @@ class ManageUser extends React.Component {
         key: 'tasks',
         render: (t) => getTask(tasks, t)
       }, {
+        title: 'Username',
+        dataIndex: 'username',
+        key: 'username',
+      }, {
         title: 'Line ID',
         dataIndex: 'contact',
         key: 'contact',
@@ -118,7 +122,7 @@ class ManageUser extends React.Component {
           tasks={tasks}
           departments={departments}
           isAdd={isAdd}
-          supervisor={!edit}
+          isAdmin={edit}
         />}
     </div>)
   }

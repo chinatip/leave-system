@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
 
   componentDidMount () {
     const { form, user, isAdd, departments } = this.props
-
+    
     if (!isAdd) {
       const dep = _.filter(departments, (d) => d._id === user.department)[0]
       if (dep) {
@@ -67,6 +67,9 @@ class LoginForm extends React.Component {
         },
         lineid: {
           value: user.contact? user.contact.lineid: null
+        },
+        username: {
+          value: user.username
         }
       })
     }
@@ -101,17 +104,17 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { form, departments, tasks, isAdd, user, supervisor } = this.props
+    const { form, departments, tasks, isAdd, user, isAdmin } = this.props
     const { getFieldDecorator } = form
     const depOptions = departments.map((d) => ({ label: d.name, value: d._id}))
     const taskOptions = tasks.map((d) => ({ label: d.name, value: d._id}))
-    const isDisable = supervisor
+    const isDisable = !isAdmin
 
     return (
       <FormContainer width={700}>
-        { isAdd && <InnerForm>
+        { (isAdd || isAdmin) && <InnerForm>
           <FormItem label={'Username'} field={'username'} message={'Please input username'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
-          <FormItem label={'Password'} field={'password'} message={'Please input password'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
+          { isAdd && <FormItem label={'Password'} field={'password'} message={'Please input password'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />}
         </InnerForm>}
         <FormItem label={'Firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />
         <FormItem label={'Lastname'} field={'lastname'} message={'Please input lastname'} getFieldDecorator={getFieldDecorator} disabled={isDisable} />

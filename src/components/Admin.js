@@ -20,7 +20,7 @@ const InnerContainer = styled.div`
 `
 const ContentContainer = styled.div`
   margin: auto;
-  width: 800px;
+  width: 850px;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -45,7 +45,7 @@ class Admin extends React.Component {
       current: type || 'profile'
     }
   }
-  
+
   handleCurrent = (current) => {
     this.setState({ current })
   }

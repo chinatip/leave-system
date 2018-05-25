@@ -30,15 +30,14 @@ class Leave extends React.Component {
 
   formatData() {
     const { leaves, onEdit, user } = this.props
-    const date = {
-      title: 'Date',
-      dataIndex: 'period',
-      key: 'date',
-      render: (date) => date? date.date: ''
-    }
-
+    
     let columns = [
       {
+        title: 'Date',
+        dataIndex: 'period',
+        key: 'date',
+        render: (date) => date? date.date: ''
+      }, {
         title: 'Substitute',
         dataIndex: 'substitute',
         key: 'substitute',
@@ -53,23 +52,9 @@ class Leave extends React.Component {
         key: 'status',
       }
     ] 
-    if (user.role === 'subordinate') {
-      const userLeaves = _.filter(leaves, (l) => l.user._id === user._id)
-      console.log(user, userLeaves)
-      return { dataSource: userLeaves, columns: [ date, ...columns ] }
-    }
 
-    columns = [ 
-      date, 
-      {
-        title: 'Name',
-        dataIndex: 'user',
-        key: 'subordinate',
-        render: (r) => `${r.firstname || ''} ${r.lastname || ''}`
-      }, 
-      ...columns
-    ]
-    return { dataSource: leaves, columns }
+    const userLeaves = _.filter(leaves, (l) => l.user._id === user._id)
+    return { dataSource: userLeaves, columns }
   }
 
   render() {
