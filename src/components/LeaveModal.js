@@ -90,25 +90,32 @@ class LoginForm extends React.Component {
     return options
   }
 
-  findAvailableDate = (list) => {
-    const { leaves } = this.props
-    const available = true
-    /**for (l in leaves) {
-      const date = form.getFieldValue('date')
-      const fDate = date.format('DD-MM-YYYY HH:mm')
-    }**/
+  findDisableDate = (date) => {
+    const { leaves, user, form } = this.props
+    let dis = false
 
-    return available
+    _.forEach(leaves, (l) => {
+      const date = form.getFieldValue('date')
+      const lDate = l.period.date.split(' ')[0]
+      const isUserOrSub = user._id === l.user._id || user._id === l.substitute._id
+      
+      if (date && date.format('DD-MM-YYYY HH:mm').includes(lDate) && isUserOrSub) {
+        dis = true
+        return true
+      }
+    })
+
+    return dis
   }
 
   render() {
     const { form, user, users, leaves } = this.props
     const { getFieldDecorator } = form
     const userLeaves = _.filter(leaves, (l) => l.user._id === user._id)
-
+    console.log(leaves)
     return (
       <FormContainer width={700}>
-        <FormItem label={'Date'} field={'date'} message={'Please input date'} getFieldDecorator={getFieldDecorator} date dateOption={this.findAvailableDate(userLeaves)}/>
+        <FormItem label={'Date'} field={'date'} message={'Please input date'} getFieldDecorator={getFieldDecorator} date dateOption={this.findDisableDate}/>
         <FormItem label={'Type'} field={'type'} message={'Please input type'} getFieldDecorator={getFieldDecorator} options={{ options: TYPES }}/>
         <FormItem label={'Detail'} field={'detail'} message={'Please input detail'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'Substitute'} field={'substitute'} message={'Please input a substitute'} getFieldDecorator={getFieldDecorator} options={{ options: this.findSubstitute() }}/>

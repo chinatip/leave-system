@@ -12,7 +12,12 @@ class CustomCalendar extends Component {
   }
 
   disabledDate = (date) => {
+    const { option } = this.props
+
     if (moment().isSame(date, 'days')) return false
+    if (option && option(date) && date && moment().isAfter(date)) {
+      return true
+    }
     return date && moment().isAfter(date)
   }
 

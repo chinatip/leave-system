@@ -64,9 +64,9 @@ const getOptions = (opts) => {
   return { selectOptions, mode }
 }
 
-const getInputItem = ({ date, textarea, options, password, disabled }) => {
+const getInputItem = ({ date, textarea, options, password, disabled, dateOption }) => {
   if (date) {
-    return <DatePicker value={date} />
+    return <DatePicker value={date} option={dateOption}/>
   } else if (textarea) {
     return <Input.TextArea row={4} />
   } else if (options) {
