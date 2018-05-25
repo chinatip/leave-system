@@ -84,7 +84,7 @@ class ManageUser extends React.Component {
     
     let dataSource = []
     if (edit) { 
-      dataSource = users
+      dataSource = users.filter((u) => u.role !== 'admin')
     } else {
       dataSource = _.filter(users, u => u.role === 'subordinate' && u.department === user.department)
     }

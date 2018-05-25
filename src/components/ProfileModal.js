@@ -28,7 +28,6 @@ const InnerForm = styled.div`
 `
 
 const ROLES = [
-  {label: 'Admin', value: 'admin'},
   {label: 'Supervisor', value: 'supervisor'},
   {label: 'Subordinate', value: 'subordinate'}
 ]
