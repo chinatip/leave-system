@@ -61,14 +61,14 @@ class Leave extends React.Component {
     const { visible } = this.state
     const { users, user } = this.props
     const { dataSource, columns } = this.formatData()
-    const depUser = _.filter(users, (u) => u._id === user.department)
+    const depUsers = _.filter(users, (u) => u.department === user.department)
 
     return (
       <div>
         <h1>Leave</h1>
         <AddButton onClick={this.handleAddLeave}>Add Leave</AddButton>
         <Table dataSource={dataSource} columns={columns} />
-        {visible && <LeaveModal onCancel={this.handleAddLeave} visible={visible} user={user} users={users}/>}
+        {visible && <LeaveModal onCancel={this.handleAddLeave} visible={visible} user={user} users={depUsers}/>}
       </div>
     )
   }

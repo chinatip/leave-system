@@ -21,9 +21,9 @@ const Flex = styled.div`
 `
 
 const TYPES = [
-  {label: 'vacation', value: 'Vacation'},
-  {label: 'personal', value: 'Personal'},
-  {label: 'sick', value: 'Sick'}
+  {label: 'Vacation leave', value: 'Vacation'},
+  {label: 'Personal leave', value: 'Personal'},
+  {label: 'Sick leave', value: 'Sick'}
 ]
 class LoginForm extends React.Component {
   state = {}
