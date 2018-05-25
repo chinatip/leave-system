@@ -39,10 +39,6 @@ class ManageUser extends React.Component {
         dataIndex: 'period.date',
         key: 'period'
       }, {
-        title: 'Day',
-        dataIndex: 'period.period',
-        key: 'period'
-      }, {
         title: 'Type',
         dataIndex: 'type',
         key: 'type'

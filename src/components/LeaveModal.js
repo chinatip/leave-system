@@ -21,9 +21,9 @@ const Flex = styled.div`
 `
 
 const TYPES = [
-  {label: 'vacation', value: 'vacation'},
-  {label: 'personal', value: 'personal'},
-  {label: 'sick', value: 'sick'}
+  {label: 'vacation', value: 'Vacation'},
+  {label: 'personal', value: 'Personal'},
+  {label: 'sick', value: 'Sick'}
 ]
 class LoginForm extends React.Component {
   state = {}
@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
           user: user._id, 
           ...values, 
           period: {
-            date: date.format('DD-MM-YYYY HH:mm'), day: period
+            date: date.format('DD-MM-YYYY HH:mm')
           },
           status: 'waiting'
         })
@@ -61,12 +61,10 @@ class LoginForm extends React.Component {
   
     return (
       <FormContainer width={700}>
-        {/* <FormItem label={'firstname'} field={'firstname'} message={'Please input firstname'} getFieldDecorator={getFieldDecorator} /> */}
-        <FormItem label={'Detail'} field={'detail'} message={'Please input detail'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'Type'} field={'type'} message={'Please input type'} getFieldDecorator={getFieldDecorator} options={{ options: TYPES }}/>
+        <FormItem label={'Detail'} field={'detail'} message={'Please input detail'} getFieldDecorator={getFieldDecorator} />
         <FormItem label={'Substitute'} field={'substitute'} message={'Please input a substitute'} getFieldDecorator={getFieldDecorator} options={{ options: subOptions }}/>
         <FormItem label={'Date'} field={'date'} message={'Please input date'} getFieldDecorator={getFieldDecorator} date/>
-        <FormItem label={'How many days?'} field={'period'} message={'Please input period'} getFieldDecorator={getFieldDecorator} />
         <NavigationButton onSubmit={this.handleSubmit} last />
       </FormContainer>
     )

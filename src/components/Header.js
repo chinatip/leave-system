@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   padding: 10px 25px;
@@ -19,12 +20,30 @@ const Type = styled.div`
 const User = styled.div`
   font-size: 16px;
 `
+const UserContainer = styled.div`
+  display: flex;
+  align-items: baseline;
+  a {
+    color: white;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.79);
+    }
+  }
+`
+const Signout = styled(Link)`
+  margin-left: 20px;
+  text-decoration: underline;
+`
 
 export default ({ type, user }) => {
   return (
     <Container>
       <Type>{type}</Type>
-      <User>{user.username}</User>
+      <UserContainer>
+        <User>{user.username}</User>
+        <Signout to='/login'>sign out</Signout>
+      </UserContainer>
     </Container>
   )
 }

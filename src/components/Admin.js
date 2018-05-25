@@ -36,17 +36,6 @@ const ADMIN_MENU = {
   'Manage User': 'manage'
 }
 
-const SUP_MENU = {
-  Profile: 'user/profile',
-  'Manage Subordinates': 'user/manage',
-  'Manage Subordinates': 'user/leaves'
-}
-
-const SUB_MENU = {
-  Profile: 'user/profile',
-  'Manage Subordinates': 'user/leaves'
-}
-
 class Admin extends React.Component {
   state = {
     current: 'profile'

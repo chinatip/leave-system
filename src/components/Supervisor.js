@@ -21,7 +21,7 @@ const InnerContainer = styled.div`
 `
 const ContentContainer = styled.div`
   margin: auto;
-  width: 800px;
+  width: 850px;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -32,20 +32,10 @@ const enhance = compose(
   withRouter
 )
 
-const ADMIN_MENU = {
-  Profile: 'profile',
-  'Manage User': 'manage'
-}
-
 const SUP_MENU = {
   Profile: 'profile',
   'Manage Subordinates': 'manage',
   'Manage Leaves': 'leaves'
-}
-
-const SUB_MENU = {
-  Profile: 'user/profile',
-  'Manage Subordinates': 'user/leaves'
 }
 
 class Admin extends React.Component {
