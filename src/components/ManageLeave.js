@@ -9,7 +9,7 @@ import moment from 'moment'
 
 import { Table } from 'common'
 import ProfileModal from './ProfileModal'
-import { verifyToken, loadUsers, loadLeaves } from 'common/services'
+import { verifyToken, loadUsers, loadLeaves, updateLeave } from 'common/services'
 
 const enhance = compose(
   resolve("user", async (props) => await verifyToken()),
@@ -20,6 +20,11 @@ const enhance = compose(
 class ManageUser extends React.Component {
   state = {
     visible: false
+  }
+
+  updateStatus = (status, { _id }) => async () => {
+    const a = await updateLeave({ _id, status })
+    window.location.reload()
   }
 
   formatData() {
@@ -51,14 +56,14 @@ class ManageUser extends React.Component {
       }, {
         title: 'Approve',
         key: 'approve',
-        render: ({ status }) => status === 'waiting'? <Button>Approve</Button>: ''
+        render: ({ status, ...props }) => status === 'waiting'? <Button onClick={this.updateStatus('approved', props)}>Approve</Button>: ''
       }, {
         title: 'Cancel',
         key: 'cancel',
-        render: ({ status }) => status === 'waiting'? <Button>Cancel</Button>: ''
+        render: ({ status, ...props }) => status === 'waiting'? <Button onClick={this.updateStatus('cancelled', props)}>Cancel</Button>: ''
       }
     ] 
-
+console.log(user,leaves)
     const depLeaves = _.filter(leaves, (l) => l.user.department === user.department)
     return { dataSource: depLeaves, columns }
   }

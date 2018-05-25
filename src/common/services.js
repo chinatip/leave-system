@@ -20,7 +20,7 @@ export const loadTasks = (data) => client.get('/tasks', data).then(({ data }) =>
 export const loadLeaves = (data) => client.get('/leaves', data).then(({ data }) => data)
 
 export const updateUser = (data) => client.post('/users/update', data).then(({ data }) => data)
-export const updateLeaves = (data) => client.post('/leaves/update', data).then(({ data }) => data)
+export const updateLeave = (data) => client.post('/leaves/update', data).then(({ data }) => data)
 
 
 export default client
